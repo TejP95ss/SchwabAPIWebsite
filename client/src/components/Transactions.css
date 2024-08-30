@@ -1,0 +1,57 @@
+  .transactions-container {
+    margin: 20px;
+  }
+  
+  .transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .transactions-table th, .transactions-table td {
+    border: 1.5px solid rgb(0, 0, 0);
+    padding: 10px;
+  }
+  
+  .transactions-table th {
+    cursor: pointer;
+  }
+  
+  .positive {
+    background-color: #00ff5c;
+  }
+  
+  .negative {
+    background-color: #ff003c;
+  }
+
+  .dateInput, .filterTicker {
+    font-size: larger;
+    font-weight: bold;
+    padding: .5vw;
+  }
+
+  .calendar {
+    font-size: large;
+    font-weight: bold;
+    margin-left: .75vw;
+  }
+
+  .dateForm {
+    padding: 1vw;
+  }
+
+  .submitButton {
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 10%;
+    background-color: rgb(196, 248, 255);
+    border-color: rgb(0, 42, 255);
+    transition-duration: .3s;
+    margin-left: .75vw;
+  }
+
+  .submitButton:hover {
+    background-color: #0011ff;
+    cursor: pointer;
+    color: white;
+  }

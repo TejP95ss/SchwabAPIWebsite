@@ -1,0 +1,46 @@
+.place-order-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.oform {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group input {
+  flex: 1;
+  margin-right: 10px; /* Space between input and dropdown */
+}
+
+.input-group select {
+  width: 100px; /* Adjust width as needed */
+}
+
+.obutton {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.obutton:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,15 @@
+.current-positions-container {
+    margin: 20px;
+  }
+  
+  .chart-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .chart {
+    width: 50%;
+    margin: 10px 0;
+  }
+  

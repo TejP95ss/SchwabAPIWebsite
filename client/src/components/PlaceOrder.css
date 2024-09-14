@@ -1,21 +1,21 @@
 .place-order-container {
   max-width: 600px;
-  margin: auto;
+  margin: 30px auto; /* Added some margin to the top */
   padding: 20px;
+  background-color: #f9f9f9; /* Light background to make the form stand out */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a 3D effect */
 }
 
-.oform {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group {
+.form-group, .instrument-group {
   margin-bottom: 15px;
 }
 
-.form-group label {
+.form-group label,
+.instrument-group label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold; /* Make labels bold */
 }
 
 .input-group {
@@ -26,21 +26,22 @@
 .input-group input {
   flex: 1;
   margin-right: 10px; /* Space between input and dropdown */
+  padding: 8px; /* Added padding for better usability */
+  border: 1px solid #ccc; /* Added border */
+  border-radius: 4px; /* Rounded corners */
 }
 
 .input-group select {
-  width: 100px; /* Adjust width as needed */
+  width: 120px; /* Adjusted width */
+  padding: 8px; /* Added padding */
+  border: 1px solid #ccc; /* Added border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #fff;
 }
 
-.obutton {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.obutton:hover {
-  background-color: #0056b3;
+.option-inputs {
+  display: flex;
+  gap: 10px; /* Added spacing between inputs */
+  margin-bottom: 15px; /* Add some margin at the bottom */
+  font-weight: bold;
 }

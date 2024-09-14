@@ -154,7 +154,7 @@ const PlaceOrder = () => {
             />
           </div>
         )}
-        <button type="submit">Submit Order</button>
+        <button type="submit" className='submitButton'>Submit Order</button>
       </form>
     </div>
   );

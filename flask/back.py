@@ -17,8 +17,8 @@ def get_transactions():
 #positions page that displays the user's current open positions
 @app.route('/api/currentpositions', methods=['GET'])
 def get_positions():
-    allTransactions = transactions.get_positions()
-    response = jsonify(allTransactions)
+    allPositions = transactions.get_positions()
+    response = jsonify(allPositions)
     return response
 
 #allows the user to place STOP, MARKET, LIMIT, and STOP-LIMIT orders on stocks and options.

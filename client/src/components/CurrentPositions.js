@@ -12,8 +12,7 @@ const CurrentPositions = () => {
     const getCurrentPositions = async () => {
       const data = await fetchCurrentPositions();
       if (data) {
-        setPositions(data);
-      }
+        setPositions(data);      }
     };
 
     getCurrentPositions();

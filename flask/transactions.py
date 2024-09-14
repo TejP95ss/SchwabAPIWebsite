@@ -13,7 +13,6 @@ c = api.Client(os.getenv('app_key'), os.getenv('app_secret')) # key and secret a
 hash = os.getenv('hash') # hash will be obtained by loggin in to the relevant schwab account.
 c.update_tokens_auto()
 
-
 # returns all the transactions taken in the given period between start and end.
 def get_transactions(start, end, filterTicker):
     if(start == None or end == None):
@@ -45,7 +44,9 @@ def get_positions():
     try:
         pos = allInfo["securitiesAccount"]["positions"]
     except:
-        return
+        allPositions.append({"ticker": "cash", "avgPrice": 1, "quantity": cash, "perAcc": round((cash/liqVal) * 100, 2)})
+        allPositions.append({"ticker": "liqVal", "value": liqVal})
+        return allPositions
     for i in range(len(pos)):
         ticker = pos[i]["instrument"]["symbol"]
         avgPrice = round(pos[i]["averagePrice"], 2)
@@ -55,9 +56,11 @@ def get_positions():
         perAcc = round(((avgPrice * quantity) / liqVal) * 100, 2)
         curDict = {"ticker": ticker, "avgPrice": avgPrice, "quantity": quantity, "PL": PL, "perPL": perPL, "perAcc": perAcc}
         allPositions.append(curDict)
+    
     allPositions.append({"ticker": "cash", "avgPrice": 1, "quantity": cash, "perAcc": round((cash/liqVal) * 100, 2)})
     allPositions.append({"ticker": "liqVal", "value": liqVal})
     return allPositions
+
 
 # allows the user to submit market, limit, stop orders to buy and sell stocks and options.
 def submit_order(ticker, quantity, type, price, buySell, optionInfo):
@@ -94,3 +97,4 @@ def createOptionSymbol(optionInfo, ticker):
     actualStrike = ((5 - preDec) * '0') + nonDecStrike + ('0' * (8 - (len(nonDecStrike) + (5 - preDec))))
 
     return spacedTicker + date_formatted + cp + actualStrike
+

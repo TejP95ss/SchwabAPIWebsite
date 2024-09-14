@@ -91,3 +91,30 @@ export const placeOrder = async (ticker, quantity, type, price, buySell, infoDic
     return null;
   }
 };
+
+
+export const cancelOrder = async (oid) => {
+  try {
+    let url = `${API_URL}/cancel`;
+    // Send data using POST
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        oid
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+};

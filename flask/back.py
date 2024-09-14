@@ -37,7 +37,7 @@ def place_order():
 @app.route('/api/cancel', methods=['POST'])
 def cancel_order():
     data = request.json
-    respCode = transactions.cancelOrder(data.get("orderNumber"))
+    respCode = transactions.cancelOrder(data.get("oid"))
     return respCode
 
 #sends the user all the currently open orders.

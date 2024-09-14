@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './PlaceOrder.css';
 import { placeOrder } from '../services/api';
 import Swal from 'sweetalert2';
-import { fetchOpenOrders } from '../services/api';
+import { fetchOpenOrders, cancelOrder } from '../services/api';
 
 const PlaceOrder = () => {
   const [instrumentType, setInstrument] = useState('STOCK');
@@ -89,7 +89,22 @@ const PlaceOrder = () => {
   };
 
   const handleCancelOrder = async (oid) => {
-    //// need to do.
+    const resp = await cancelOrder(oid);
+    if(resp["code"] === 200) {
+      Swal.fire({
+        title: "Success",
+        text: "Cancelled Order with id: " + oid,
+        icon: "success"
+      });
+      getOpenOrders()
+    }
+    else {
+      Swal.fire({
+        title: "Error",
+        text: "Failed to cancel Order",
+        icon: "error"
+      });
+    }
   };
       
   return (
@@ -231,7 +246,7 @@ const PlaceOrder = () => {
               <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Duration"]}</td>
               <td>
                 {/* Cancel button */}
-                <button onClick={() => handleCancelOrder(order.oid)} className="cancel-button">
+                <button onClick={() => handleCancelOrder(order.oid)} className="cancelButton">
                   Cancel
                 </button>
               </td>

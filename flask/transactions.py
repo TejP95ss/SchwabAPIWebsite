@@ -120,3 +120,8 @@ def createOptionSymbol(optionInfo, ticker):
     actualStrike = ((5 - preDec) * '0') + nonDecStrike + ('0' * (8 - (len(nonDecStrike) + (5 - preDec))))
 
     return spacedTicker + date_formatted + cp + actualStrike
+
+#cancels the order with the given order number
+def cancelOrder(on):
+    resp = c.order_cancel(hash, on)
+    return {"code": resp.status_code}

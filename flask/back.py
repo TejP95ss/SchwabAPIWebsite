@@ -34,6 +34,12 @@ def place_order():
     respCode = transactions.submit_order(ticker, quantity, typeOf, price, bs, optionInfo)
     return jsonify(respCode)
 
+@app.route('/api/cancel', methods=['POST'])
+def cancel_order():
+    data = request.json
+    respCode = transactions.cancelOrder(data.get("orderNumber"))
+    return respCode
+
 #sends the user all the currently open orders.
 @app.route('/api/openorders', methods=["GET"])
 def open_orders():

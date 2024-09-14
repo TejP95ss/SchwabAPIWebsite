@@ -33,5 +33,11 @@ def place_order():
     respCode = transactions.submit_order(ticker, quantity, typeOf, price, bs, optionInfo.split(','))
     return jsonify(respCode)
 
+#sends the user all the currently open orders.
+@app.route('/api/openorders', methods=["GET"])
+def open_orders():
+    all_open_orders = transactions.open_orders()
+    return jsonify(all_open_orders)
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,6 +1,6 @@
 import api
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 import os
 
@@ -60,7 +60,26 @@ def get_positions():
     allPositions.append({"ticker": "cash", "avgPrice": 1, "quantity": cash, "perAcc": round((cash/liqVal) * 100, 2)})
     allPositions.append({"ticker": "liqVal", "value": liqVal})
     return allPositions
-
+#PENDING_ACTIVATION, WORKING, REJECTED, PENDING_CANCEL, CANCELED REPLACED, FILLED, there are more but these are the most useful
+# returns all the open orders the user has. Useful to see when placing an order and the orderPlace page.
+def open_orders():
+    orders = c.account_orders(hash, datetime.now() - timedelta(days=363), datetime.now() + timedelta(days=1), status="PENDING_ACTIVATION").json()
+    allOrders = []
+    for i in range(len(orders)):
+        session = orders[i]["session"]
+        duration = orders[i]["duration"]
+        orderType = orders[i]["orderType"]
+        quantity = orders[i]["quantity"]
+        symbol = orders[i]["orderLegCollection"][0]["instrument"]["symbol"]
+        oid = orders[i]["orderId"]
+        if(orderType == "LIMIT" or orderType == "LIMIT_ON_CLOSE"):
+            price = orders[i]["price"]
+        elif(orderType == "STOP"):
+            price = orders[i]["stopPrice"]
+        else: price = None
+        curDict = {"Symbol": symbol, "Quantity": quantity, "Type": orderType, "Price": price, "Session": session, "Duration": duration, "oid": oid}
+        allOrders.append(curDict)
+    return allOrders
 
 # allows the user to submit market, limit, stop orders to buy and sell stocks and options.
 def submit_order(ticker, quantity, type, price, buySell, optionInfo):

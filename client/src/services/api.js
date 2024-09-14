@@ -36,6 +36,22 @@ export const fetchCurrentPositions = async () => {
   }
 };
 
+export const fetchOpenOrders = async () => {
+  try {
+    const response = await fetch(`${API_URL}/openorders`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+};
+
+
 
 export const placeOrder = async (ticker, quantity, type, price, buySell, infoDict) => {
   try {

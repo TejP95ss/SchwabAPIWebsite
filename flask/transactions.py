@@ -63,7 +63,11 @@ def get_positions():
 #PENDING_ACTIVATION, WORKING, REJECTED, PENDING_CANCEL, CANCELED REPLACED, FILLED, there are more but these are the most useful
 # returns all the open orders the user has. Useful to see when placing an order and the orderPlace page.
 def open_orders():
-    orders = c.account_orders(hash, datetime.now() - timedelta(days=363), datetime.now() + timedelta(days=1), status="PENDING_ACTIVATION").json()
+    start = datetime.now() - timedelta(days=363)
+    end =datetime.now() + timedelta(days=1)
+    pending_activation = c.account_orders(hash, start, end, status="PENDING_ACTIVATION").json()
+    working = c.account_orders(hash, start, end, status="WORKING").json()
+    orders = pending_activation + working
     allOrders = []
     for i in range(len(orders)):
         session = orders[i]["session"]
@@ -116,4 +120,3 @@ def createOptionSymbol(optionInfo, ticker):
     actualStrike = ((5 - preDec) * '0') + nonDecStrike + ('0' * (8 - (len(nonDecStrike) + (5 - preDec))))
 
     return spacedTicker + date_formatted + cp + actualStrike
-

@@ -70,6 +70,13 @@ const PlaceOrder = () => {
       });
       getOpenOrders();
     }
+    else {
+      Swal.fire({
+        title: "Failure",
+        text: "Failed to place order. Double check your order.",
+        icon: "error"
+      });
+    }
   };
 
   const sortedOrders = [...orders].sort((a, b) => {

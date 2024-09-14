@@ -22,15 +22,16 @@ def get_positions():
     return response
 
 #allows the user to place STOP, MARKET, LIMIT, and STOP-LIMIT orders on stocks and options.
-@app.route('/api/placeorder', methods=['GET'])
+@app.route('/api/placeorder', methods=['POST'])
 def place_order():
-    ticker = request.args.get('ticker')
-    typeOf = request.args.get('type')
-    quantity = int(request.args.get('quantity'))
-    price = request.args.get('price')
-    bs = request.args.get('buysell')
-    optionInfo = request.args.get('infodict')
-    respCode = transactions.submit_order(ticker, quantity, typeOf, price, bs, optionInfo.split(','))
+    data = request.json
+    ticker = data.get('ticker')
+    typeOf = data.get('type')
+    quantity = int(data.get('quantity'))
+    price = data.get('price')
+    bs = data.get('buysell')
+    optionInfo = data.get('infodict')
+    respCode = transactions.submit_order(ticker, quantity, typeOf, price, bs, optionInfo)
     return jsonify(respCode)
 
 #sends the user all the currently open orders.

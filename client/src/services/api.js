@@ -58,11 +58,26 @@ export const placeOrder = async (ticker, quantity, type, price, buySell, infoDic
     let url = `${API_URL}/placeorder`;
     let valid = (ticker && quantity && type && buySell && price) 
     || (ticker && quantity && (type === "MARKET" || type === "MARKET_ON_CLOSE") && buySell)
-    if (valid) {
-      url += `?ticker=${ticker}&quantity=${quantity}&type=${type}&price=${price}&buysell=${buySell}&infodict=${infoDict}`;
+    
+    if (!valid) {
+      throw new Error('Invalid input');
     }
     
-    const response = await fetch(url);
+    // Send data using POST
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ticker,
+        quantity,
+        type,
+        price,
+        buysell: buySell,
+        infodict: infoDict,
+      }),
+    });
     
     if (!response.ok) {
       throw new Error('Network response was not ok');

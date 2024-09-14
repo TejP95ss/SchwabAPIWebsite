@@ -9,7 +9,7 @@ const PlaceOrder = () => {
   const [ticker, setTicker] = useState('');
   const [expiry, setExpiry] = useState('');
   const [strike, setStrike] = useState('');
-  const [cp, setCP] = useState("C");
+  const [cp, setCP] = useState('CALL');
   const [quantity, setQuantity] = useState('');
   const [buySell, setBuySell] = useState('BUY');
   const [orderType, setOrderType] = useState('LIMIT');

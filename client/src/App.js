@@ -9,9 +9,12 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div className='App-header'>
+      <header>
         <h1>Schwab API Web Application</h1>
       </header>
+      </div> 
+      <div className="bottomPart">
       <main>
         <Routes>
           <Route path="/transactions" element={<Transactions />} />
@@ -30,19 +33,23 @@ function App() {
               <Link to="/currentpositions">
                 <button className='submitButton'>Current Positions</button>
               </Link>
-              <h2>Visualize current open positions in the account in both dollar and percentage terms</h2>
+              <h2>Visualize current open positions in the account in both dollar and percentage terms as well
+                as see the list of all positions.
+              </h2>
               </div>
               <div className="button-item">
               <Link to="/placeorder">
                 <button className='submitButton'>Place Order</button>
               </Link>
-              <h2>Place a buy, sell, short, or cover order on stocks and options</h2>
+              <h2>Place a buy, sell, short, or cover order on stocks and options. Also lets you cancel an order and
+                see all open orders.
+              </h2>
               </div>
-          </div>
-          
+          </div>   
           } />
         </Routes>
       </main>
+      </div>
     </div>
   );
 }

@@ -1,35 +1,57 @@
 .App {
-    text-align: center;
-  }
-  
+  text-align: center;
+  font-family: monospace;
+  font-size: larger;
+  background: #f0f0f0; /* Light gray background */
+  min-height: 100vh; /* Ensures the background covers the entire viewport */
+  padding: 2vh;
+}
+
 .App-header {
-  background-color: #00eeff;
+  background: linear-gradient(to right, #008cff, #1100ff);
+  padding: 5vh;
+  color: #ffffff;
+}
+
+.button-container {
+  margin-top: 15vh;
+  display: flex;
+  justify-content: space-around; /* Even spacing around the buttons */
+  align-items: flex-start;
+  padding: 5vh 2vw; /* Add padding for better spacing */
+}
+
+.button-item {
+  width: 25%;
+  height: 150px;
+  flex: 1;
+  margin: 10px;
   padding: 20px;
-  color: rgb(0, 0, 0);
-  }
+  background: #ffcffc4e; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .4); /* Adds subtle shadow */
+  border-radius: 5%; /* Rounded corners */
+}
 
-  .button-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  .button-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-top: 25vh;
-  }
-  
-  .button-item h2 {
-    margin-top: 20px;
-    font-size: 18px;
-    text-align: center;
-    color: rgb(0, 0, 0);
-    font-family: sans-serif;
-  }
+.button-item h2 {
+  margin-top: 20px;
+  font-size: 18px;
+  text-align: center;
+  color: #000000; /* Darker color for better contrast */
+  font-family: monospace;
+}
 
-  
+.submitButton {
+  font-size: large;
+  font-weight: bold;
+  border-radius: 10%;
+  background-color: rgb(196, 248, 255);
+  border-color: rgb(0, 42, 255);
+  transition-duration: .5s;
+  margin-left: .75vw;
+}
+
+.submitButton:hover {
+  background-color: #0011ff;
+  cursor: pointer;
+  color: white;
+}

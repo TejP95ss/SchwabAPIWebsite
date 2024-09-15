@@ -88,7 +88,6 @@ def open_orders():
 # allows the user to submit market, limit, stop orders to buy and sell stocks and options.
 def submit_order(ticker, quantity, type, price, buySell, optionInfo):
     if(len(optionInfo) == 3):
-        print(optionInfo)
         symDict = {"symbol": createOptionSymbol(optionInfo, ticker), "assetType": "OPTION"}
     else:
         symDict = {"symbol": ticker, "assetType": "EQUITY"}
@@ -100,8 +99,11 @@ def submit_order(ticker, quantity, type, price, buySell, optionInfo):
     elif(type ==  "STOP"):
         order["stopPrice"] = price
     resp = c.order_place(hash, order)
-    print(resp.text)
-    return {"code": resp.status_code}
+    status = c.order_details(hash, resp.headers.get('location', '/').split('/')[-1]).json()["status"] 
+    if(status == "WORKING" or status == "PENDING_ACTIVATION" or status == "FILLED"):
+        return {"code": 201}
+    else:
+        return {"code": 0}
 
 #creates the ticker symbol the option contract from the given information
 def createOptionSymbol(optionInfo, ticker):

@@ -50,14 +50,14 @@
   font-size: medium;
   font-weight: bold;
   border-radius: 10%;
-  background-color: rgb(196, 248, 255);
-  border-color: rgb(0, 42, 255);
+  background-color: rgb(255, 196, 196);
+  border-color: rgb(255, 0, 0);
   transition-duration: .3s;
   margin-left: .75vw;
 }
 
 .cancelButton:hover {
-  background-color: #0011ff;
+  background-color: #ff0000;
   cursor: pointer;
   color: white;
 }

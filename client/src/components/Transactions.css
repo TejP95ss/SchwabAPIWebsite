@@ -39,19 +39,3 @@
   .dateForm {
     padding: 1vw;
   }
-
-  .submitButton {
-    font-size: medium;
-    font-weight: bold;
-    border-radius: 10%;
-    background-color: rgb(196, 248, 255);
-    border-color: rgb(0, 42, 255);
-    transition-duration: .3s;
-    margin-left: .75vw;
-  }
-
-  .submitButton:hover {
-    background-color: #0011ff;
-    cursor: pointer;
-    color: white;
-  }

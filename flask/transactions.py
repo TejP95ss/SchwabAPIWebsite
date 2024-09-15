@@ -70,6 +70,9 @@ def open_orders():
     orders = pending_activation + working
     allOrders = []
     for i in range(len(orders)):
+        time = orders[i]["enteredTime"][11:19]
+        date = orders[i]["enteredTime"][0:10]
+        dt = date  + 'T' + (datetime.strptime(time, "%H:%M:%S") - timedelta(hours=4)).strftime("%H:%M:%S")
         session = orders[i]["session"]
         duration = orders[i]["duration"]
         orderType = orders[i]["orderType"]
@@ -81,7 +84,8 @@ def open_orders():
         elif(orderType == "STOP"):
             price = orders[i]["stopPrice"]
         else: price = None
-        curDict = {"Symbol": symbol, "Quantity": quantity, "Type": orderType, "Price": price, "Session": session, "Duration": duration, "oid": oid}
+        curDict = {"Symbol": symbol, "Quantity": quantity, "DateTime": dt, "Type": 
+                   orderType, "Price": price, "Session": session, "Duration": duration, "oid": oid}
         allOrders.append(curDict)
     return allOrders
 

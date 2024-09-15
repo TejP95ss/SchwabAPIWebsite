@@ -82,8 +82,24 @@ const PlaceOrder = () => {
   const sortedOrders = [...orders].sort((a, b) => {
     if (sortConfig.key === null) return 0;
     const { key, direction } = sortConfig;
-    if (a[key] < b[key]) return direction === 'asc' ? -1 : 1;
-    if (a[key] > b[key]) return direction === 'asc' ? 1 : -1;
+  
+    // Handle DateTime sorting
+    if (key === 'DateTime') {
+      const dateA = new Date(a[key]);
+      const dateB = new Date(b[key]);
+
+      if (dateA < dateB) return direction === 'asc' ? -1 : 1;
+      if (dateA > dateB) return direction === 'asc' ? 1 : -1;
+      return 0;
+    }
+  
+    // Other sorting logic
+    if (a[key] < b[key]) {
+      return direction === 'asc' ? -1 : 1;
+    }
+    if (a[key] > b[key]) {
+      return direction === 'asc' ? 1 : -1;
+    }
     return 0;
   });
 
@@ -227,6 +243,9 @@ const PlaceOrder = () => {
             <th onClick={() => handleSort('Quantity')}>
               Quantity {sortConfig.key === 'Quantity' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
+            <th onClick={() => handleSort('DateTime')}>
+              DateTime {sortConfig.key === 'DateTime' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
+            </th>
             <th onClick={() => handleSort('Type')}>
               Type {sortConfig.key === 'Type' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
@@ -247,6 +266,7 @@ const PlaceOrder = () => {
             <tr key={order.id}>
               <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Symbol"]}</td>
               <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Quantity"]}</td>
+              <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["DateTime"]}</td>
               <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Type"]}</td>
               <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Price"]}</td>
               <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Session"]}</td>

@@ -3,6 +3,7 @@ import './PlaceOrder.css';
 import { placeOrder } from '../services/api';
 import Swal from 'sweetalert2';
 import { fetchOpenOrders, cancelOrder } from '../services/api';
+import useSortableData from './Sort';
 
 const PlaceOrder = () => {
   const [instrumentType, setInstrument] = useState('STOCK');
@@ -15,7 +16,7 @@ const PlaceOrder = () => {
   const [orderType, setOrderType] = useState('LIMIT');
   const [price, setPrice] = useState('');
   const [orders, setOrders] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const { items: sortedOrders, requestSort, sortConfig } = useSortableData(orders);
 
   const getOpenOrders = async () => {
     const data = await fetchOpenOrders();
@@ -77,38 +78,6 @@ const PlaceOrder = () => {
         icon: "error"
       });
     }
-  };
-
-  const sortedOrders = [...orders].sort((a, b) => {
-    if (sortConfig.key === null) return 0;
-    const { key, direction } = sortConfig;
-  
-    // Handle DateTime sorting
-    if (key === 'DateTime') {
-      const dateA = new Date(a[key]);
-      const dateB = new Date(b[key]);
-
-      if (dateA < dateB) return direction === 'asc' ? -1 : 1;
-      if (dateA > dateB) return direction === 'asc' ? 1 : -1;
-      return 0;
-    }
-  
-    // Other sorting logic
-    if (a[key] < b[key]) {
-      return direction === 'asc' ? -1 : 1;
-    }
-    if (a[key] > b[key]) {
-      return direction === 'asc' ? 1 : -1;
-    }
-    return 0;
-  });
-
-  const handleSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({key, direction});
   };
 
   const handleCancelOrder = async (oid) => {
@@ -237,25 +206,25 @@ const PlaceOrder = () => {
     <table className="transactions-table">
         <thead>
           <tr>
-            <th onClick={() => handleSort('Ticker')}>
+            <th onClick={() => requestSort('Ticker')}>
               Ticker {sortConfig.key === 'Ticker' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('Quantity')}>
+            <th onClick={() => requestSort('Quantity')}>
               Quantity {sortConfig.key === 'Quantity' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('DateTime')}>
+            <th onClick={() => requestSort('DateTime')}>
               DateTime {sortConfig.key === 'DateTime' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('Type')}>
+            <th onClick={() => requestSort('Type')}>
               Type {sortConfig.key === 'Type' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('Price')}>
+            <th onClick={() => requestSort('Price')}>
               Price {sortConfig.key === 'Price' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('Session')}>
+            <th onClick={() => requestSort('Session')}>
               Session {sortConfig.key === 'Session' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('Duration')}>
+            <th onClick={() => requestSort('Duration')}>
               Duration {sortConfig.key === 'Duration' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
             <th>Actions</th> {/* New column for the Cancel button */}

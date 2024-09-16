@@ -72,7 +72,7 @@ def open_orders():
     for i in range(len(orders)):
         time = orders[i]["enteredTime"][11:19]
         date = orders[i]["enteredTime"][0:10]
-        dt = date  + 'T' + (datetime.strptime(time, "%H:%M:%S") - timedelta(hours=4)).strftime("%H:%M:%S")
+        dt = date  + ' ' + (datetime.strptime(time, "%H:%M:%S") - timedelta(hours=4)).strftime("%H:%M:%S")
         session = orders[i]["session"]
         duration = orders[i]["duration"]
         orderType = orders[i]["orderType"]

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { fetchTransactionsByDate } from '../services/api';
 import './Transactions.css';
+import useSortableData from './Sort';
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [filterTicker, setFilterTicker] = useState('');
+  const { items: sortedTransactions, requestSort, sortConfig } = useSortableData(transactions);
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -16,7 +17,6 @@ const Transactions = () => {
         setTransactions(data);
       }
     };
-
     getTransactions();
   }, []);
 
@@ -26,22 +26,6 @@ const Transactions = () => {
     if (data) {
       setTransactions(data);
     }
-  };
-
-  const sortedTransactions = [...transactions].sort((a, b) => {
-    if (sortConfig.key === null) return 0;
-    const { key, direction } = sortConfig;
-    if (a[key] < b[key]) return direction === 'asc' ? -1 : 1;
-    if (a[key] > b[key]) return direction === 'asc' ? 1 : -1;
-    return 0;
-  });
-
-  const handleSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({ key, direction });
   };
 
   return (
@@ -80,19 +64,19 @@ const Transactions = () => {
       <table className="transactions-table">
         <thead>
           <tr>
-            <th onClick={() => handleSort('date')}>
+            <th onClick={() => requestSort('date')}>
               Date {sortConfig.key === 'date' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('ticker')}>
+            <th onClick={() => requestSort('ticker')}>
               Ticker {sortConfig.key === 'ticker' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('quantity')}>
+            <th onClick={() => requestSort('quantity')}>
               Quantity {sortConfig.key === 'quantity' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('price')}>
+            <th onClick={() => requestSort('price')}>
               Price {sortConfig.key === 'price' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
-            <th onClick={() => handleSort('amount')}>
+            <th onClick={() => requestSort('amount')}>
               Amount {sortConfig.key === 'amount' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
             </th>
           </tr>

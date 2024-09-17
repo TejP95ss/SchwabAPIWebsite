@@ -4,6 +4,7 @@ import { placeOrder } from '../services/api';
 import Swal from 'sweetalert2';
 import { fetchOpenOrders, cancelOrder } from '../services/api';
 import useSortableData from './Sort';
+import {pn} from './InputForms'
 
 const PlaceOrder = () => {
   const [instrumentType, setInstrument] = useState('STOCK');
@@ -233,13 +234,13 @@ const PlaceOrder = () => {
         <tbody>
           {sortedOrders.map((order) => (
             <tr key={order.id}>
-              <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Symbol"]}</td>
-              <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Quantity"]}</td>
-              <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["DateTime"]}</td>
-              <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Type"]}</td>
-              <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Price"]}</td>
-              <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Session"]}</td>
-              <td className={order["Quantity"] > 0 ? 'positive' : 'negative'}> {order["Duration"]}</td>
+              <td className={pn(order["Quantity"])}> {order["Symbol"]}</td>
+              <td className={pn(order["Quantity"])}> {order["Quantity"]}</td>
+              <td className={pn(order["Quantity"])}> {order["DateTime"]}</td>
+              <td className={pn(order["Quantity"])}> {order["Type"]}</td>
+              <td className={pn(order["Quantity"])}> {order["Price"]}</td>
+              <td className={pn(order["Quantity"])}> {order["Session"]}</td>
+              <td className={pn(order["Quantity"])}> {order["Duration"]}</td>
               <td>
                 {/* Cancel button */}
                 <button onClick={() => handleCancelOrder(order.oid)} className="cancelButton">

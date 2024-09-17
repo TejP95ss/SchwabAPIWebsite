@@ -1,8 +1,7 @@
 import { useState, useMemo } from 'react';
 
-const useSortableData = (items, config = 'asc') => {
+const useSortableData = (items, config = {key: null, direction: 'asc'}) => {
   const [sortConfig, setSortConfig] = useState(config);
-
   const sortedItems = useMemo(() => {
     let sortableItems = [...items];
     sortableItems.sort((a, b) => {

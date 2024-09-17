@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchTransactionsByDate } from '../services/api';
 import './Transactions.css';
 import useSortableData from './Sort';
+import {DateInput, pn} from './InputForms';
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -32,24 +33,16 @@ const Transactions = () => {
     <div className="transactions-container">
       <h1>Transactions</h1>
       <form onSubmit={handleFilter} className='dateForm'>
-        <label className="dateInput">
-          Start Date: 
-          <input 
-            type="date"
-            className="calendar" 
-            value={startDate} 
-            onChange={(e) => setStartDate(e.target.value)} 
+          <DateInput 
+            val={startDate} 
+            title={"Start Date:"}
+            ch={setStartDate} 
           />
-        </label>
-        <label className="dateInput">
-          End Date: 
-          <input 
-            type="date" 
-            className="calendar"
-            value={endDate} 
-            onChange={(e) => setEndDate(e.target.value)} 
+          <DateInput
+          val={endDate} 
+          title={"End Date:"}
+          ch={setEndDate} 
           />
-        </label>
         <label className="filterTicker">
          Ticker (Optional): 
           <input 
@@ -84,11 +77,11 @@ const Transactions = () => {
         <tbody>
           {sortedTransactions.map((transaction) => (
             <tr key={transaction.id}>
-              <td className={transaction.quantity > 0 ? 'positive' : 'negative'}> {transaction.date}</td>
-              <td className={transaction.quantity > 0 ? 'positive' : 'negative'}> {transaction.ticker}</td>
-              <td className={transaction.quantity > 0 ? 'positive' : 'negative'}> {transaction.quantity}</td>
-              <td className={transaction.quantity > 0 ? 'positive' : 'negative'}> {transaction.price}</td>
-              <td className={transaction.quantity > 0 ? 'positive' : 'negative'}> {transaction.amount}</td>
+              <td className={pn(transaction.quantity)}> {transaction.date}</td>
+              <td className={pn(transaction.quantity)}> {transaction.ticker}</td>
+              <td className={pn(transaction.quantity)}> {transaction.quantity}</td>
+              <td className={pn(transaction.quantity)}> {transaction.price}</td>
+              <td className={pn(transaction.quantity)}> {transaction.amount}</td>
             </tr>
           ))}
         </tbody>

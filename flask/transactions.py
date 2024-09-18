@@ -49,7 +49,7 @@ def get_positions():
         return allPositions
     for i in range(len(pos)):
         ticker = pos[i]["instrument"]["symbol"]
-        avgPrice = round(pos[i]["averagePrice"], 2)
+        avgPrice =  (round(pos[i]["averagePrice"], 2) * 100) if (pos[i]["instrument"]["assetType"] == "OPTION") else round(pos[i]["averagePrice"], 2)
         quantity = pos[i]["longQuantity"]
         PL = round(pos[i]["longOpenProfitLoss"], 2)
         perPL = round(((PL / (avgPrice * quantity)) * 100), 2)

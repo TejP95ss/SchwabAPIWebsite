@@ -84,7 +84,7 @@ def open_orders():
         elif(orderType == "STOP"):
             price = orders[i]["stopPrice"]
         else: price = None
-        curDict = {"Symbol": symbol, "Quantity": quantity, "DateTime": dt, "Type": 
+        curDict = {"Ticker": symbol, "Quantity": quantity, "DateTime": dt, "Type": 
                    orderType, "Price": price, "Session": session, "Duration": duration, "oid": oid}
         allOrders.append(curDict)
     return allOrders

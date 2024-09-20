@@ -28,9 +28,7 @@ const Transactions = () => {
       setTransactions(data);
     }
   };
-
   const columns = ['date', 'ticker', 'quantity', 'price', 'amount'];
-
   return (
     <div className="transactions-container">
       <h1>Transactions</h1>
@@ -59,7 +57,7 @@ const Transactions = () => {
       <table className="transactions-table">
         <thead>
           <tr>
-          <>{columns.map((label) => ( // creates columns for date, ticker, quantity, price, amount 
+          <>{columns.map((label) => ( //creates columns used by the list
             <ColumnCreator label={label} sortConfig={sortConfig} requestSort={requestSort} />
           ))}</>
           </tr>
@@ -67,11 +65,9 @@ const Transactions = () => {
         <tbody>
           {sortedTransactions.map((transaction) => (
             <tr key={transaction.id}>
-              <td className={pn(transaction.quantity)}> {transaction.date}</td>
-              <td className={pn(transaction.quantity)}> {transaction.ticker}</td>
-              <td className={pn(transaction.quantity)}> {transaction.quantity}</td>
-              <td className={pn(transaction.quantity)}> {transaction.price}</td>
-              <td className={pn(transaction.quantity)}> {transaction.amount}</td>
+              <>{columns.map((label) => ( //adds values to the columns
+              <td className={pn(transaction.quantity)}> {transaction[label]}</td>
+              ))}</>
             </tr>
           ))}
         </tbody>
@@ -79,5 +75,4 @@ const Transactions = () => {
     </div>
   );
 };
-
 export default Transactions;

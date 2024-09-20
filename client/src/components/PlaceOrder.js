@@ -209,7 +209,7 @@ const PlaceOrder = () => {
     <table className="transactions-table">
         <thead>
           <tr>
-            <>{columns.map((label) => (//columns for 'Ticker', 'Quantity', 'DateTime', 'Type', 'Price', 'Session', 'Duration'
+            <>{columns.map((label) => (//creates all the columns
             <ColumnCreator label={label} sortConfig={sortConfig} requestSort={requestSort} />
             ))}</>
             <th>Actions</th> {/* New column for the Cancel button */}
@@ -218,13 +218,9 @@ const PlaceOrder = () => {
         <tbody>
           {sortedOrders.map((order) => (
             <tr key={order.id}>
-              <td className={pn(order["Quantity"])}> {order["Ticker"]}</td>
-              <td className={pn(order["Quantity"])}> {order["Quantity"]}</td>
-              <td className={pn(order["Quantity"])}> {order["DateTime"]}</td>
-              <td className={pn(order["Quantity"])}> {order["Type"]}</td>
-              <td className={pn(order["Quantity"])}> {order["Price"]}</td>
-              <td className={pn(order["Quantity"])}> {order["Session"]}</td>
-              <td className={pn(order["Quantity"])}> {order["Duration"]}</td>
+              <>{columns.map((label) => (//adds all the rows to the columns
+                <td className={pn(order["Quantity"])}> {order[label]}</td>
+              ))}</>
               <td>
                 <button onClick={() => handleCancelOrder(order.oid)} className="cancelButton">
                   Cancel

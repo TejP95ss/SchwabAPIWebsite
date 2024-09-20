@@ -12,7 +12,7 @@ const useSortableData = (items, config = {key: null, direction: 'asc'}) => {
     return sortableItems;
   }, [items, sortConfig]);
 
-  const handleSort = (key) => {
+  const handleSort = (key) => { // sets the sorting key and direction based on given key.
     let direction = 'asc';
     if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './PlaceOrder.css';
-import { placeOrder } from '../services/api';
+import {placeOrder} from '../services/api';
 import Swal from 'sweetalert2';
-import { fetchOpenOrders, cancelOrder } from '../services/api';
+import {fetchOpenOrders, cancelOrder} from '../services/api';
 import useSortableData from './Sort';
-import {pn} from './InputForms'
+import {pn, ColumnCreator} from './InputForms'
 
 const PlaceOrder = () => {
   const [instrumentType, setInstrument] = useState('STOCK');
@@ -99,6 +99,8 @@ const PlaceOrder = () => {
       });
     }
   };
+
+  const columns = ['Ticker', 'Quantity', 'DateTime', 'Type', 'Price', 'Session', 'Duration'];
       
   return (
     <div className='placeAndSee'> 
@@ -207,34 +209,16 @@ const PlaceOrder = () => {
     <table className="transactions-table">
         <thead>
           <tr>
-            <th onClick={() => requestSort('Ticker')}>
-              Ticker {sortConfig.key === 'Ticker' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('Quantity')}>
-              Quantity {sortConfig.key === 'Quantity' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('DateTime')}>
-              DateTime {sortConfig.key === 'DateTime' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('Type')}>
-              Type {sortConfig.key === 'Type' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('Price')}>
-              Price {sortConfig.key === 'Price' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('Session')}>
-              Session {sortConfig.key === 'Session' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('Duration')}>
-              Duration {sortConfig.key === 'Duration' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
+            <>{columns.map((label) => (//columns for 'Ticker', 'Quantity', 'DateTime', 'Type', 'Price', 'Session', 'Duration'
+            <ColumnCreator label={label} sortConfig={sortConfig} requestSort={requestSort} />
+            ))}</>
             <th>Actions</th> {/* New column for the Cancel button */}
           </tr>
         </thead>
         <tbody>
           {sortedOrders.map((order) => (
             <tr key={order.id}>
-              <td className={pn(order["Quantity"])}> {order["Symbol"]}</td>
+              <td className={pn(order["Quantity"])}> {order["Ticker"]}</td>
               <td className={pn(order["Quantity"])}> {order["Quantity"]}</td>
               <td className={pn(order["Quantity"])}> {order["DateTime"]}</td>
               <td className={pn(order["Quantity"])}> {order["Type"]}</td>
@@ -242,7 +226,6 @@ const PlaceOrder = () => {
               <td className={pn(order["Quantity"])}> {order["Session"]}</td>
               <td className={pn(order["Quantity"])}> {order["Duration"]}</td>
               <td>
-                {/* Cancel button */}
                 <button onClick={() => handleCancelOrder(order.oid)} className="cancelButton">
                   Cancel
                 </button>

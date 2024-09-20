@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchTransactionsByDate } from '../services/api';
 import './Transactions.css';
 import useSortableData from './Sort';
-import {DateInput, pn} from './InputForms';
+import {DateInput, pn, ColumnCreator} from './InputForms';
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -28,6 +28,8 @@ const Transactions = () => {
       setTransactions(data);
     }
   };
+
+  const columns = ['date', 'ticker', 'quantity', 'price', 'amount'];
 
   return (
     <div className="transactions-container">
@@ -57,21 +59,9 @@ const Transactions = () => {
       <table className="transactions-table">
         <thead>
           <tr>
-            <th onClick={() => requestSort('date')}>
-              Date {sortConfig.key === 'date' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('ticker')}>
-              Ticker {sortConfig.key === 'ticker' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('quantity')}>
-              Quantity {sortConfig.key === 'quantity' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('price')}>
-              Price {sortConfig.key === 'price' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
-            <th onClick={() => requestSort('amount')}>
-              Amount {sortConfig.key === 'amount' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-            </th>
+          <>{columns.map((label) => ( // creates columns for date, ticker, quantity, price, amount 
+            <ColumnCreator label={label} sortConfig={sortConfig} requestSort={requestSort} />
+          ))}</>
           </tr>
         </thead>
         <tbody>

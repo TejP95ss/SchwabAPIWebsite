@@ -76,7 +76,8 @@ def open_orders():
         session = orders[i]["session"]
         duration = orders[i]["duration"]
         orderType = orders[i]["orderType"]
-        quantity = orders[i]["quantity"]
+        inst = orders[i]["orderLegCollection"][0]["instruction"]
+        quantity = (orders[i]["quantity"] * -1) if (inst == "SELL" or inst == "SELL_TO_CLOSE") else orders[i]["quantity"]
         symbol = orders[i]["orderLegCollection"][0]["instrument"]["symbol"]
         oid = orders[i]["orderId"]
         if(orderType == "LIMIT" or orderType == "LIMIT_ON_CLOSE"):

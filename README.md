@@ -9,7 +9,7 @@ Another use case would be **algorithmic trading**. The backend of this project h
 ### Setup
 To edit this repo, install the necessary python modules and make sure to have react properly set up as well.
 
-You will need to create an account and apply for a app via the **Schwab Developer API platform**. Once approved for the application, you can obtain the **app key** and the **app secret** from that website. You will have to then wait a few days for approval.
+You will need to create an account and apply for a app via the **Schwab Developer API platform**. You will have to then wait a few days for approval. Once approved for the application, you can obtain the **app key** and the **app secret** from that website. 
 
 Then you can run transactions.py and it will prompt you to login. Log in, press done and then copy the link at the top of that page that says failed to connect. Within 30 seconds or so, paste that link into the terminal(there will be a prompt). Once that is done, your **hash** will be displayed in the terminal when you run back.py
 
